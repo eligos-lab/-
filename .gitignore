@@ -1,10 +1,18 @@
-# Файлы сборки Maven
+# Конфигурационные файлы
+config.properties
+src/main/resources/config.properties
+resources/config.properties
+
+# Файлы сборки
 target/
 *.jar
 *.war
 *.ear
 
-# Файлы IDE
+# Docker
+docker-compose.override.yml
+
+# IDE
 .idea/
 *.iml
 *.ipr

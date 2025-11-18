@@ -1,5 +1,5 @@
 import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class Config {
@@ -9,24 +9,33 @@ public class Config {
         try {
             String[] configPaths = {
                     "config.properties",
+                    "/app/config.properties",
                     "src/main/resources/config.properties",
                     "resources/config.properties"
             };
 
             boolean loaded = false;
             for (String path : configPaths) {
-                try (FileInputStream input = new FileInputStream(path)) {
+                try (InputStream input = new FileInputStream(path)) {
                     properties.load(input);
                     System.out.println("✅ Конфиг загружен из: " + path);
                     loaded = true;
                     break;
-                } catch (IOException e) {
+                } catch (Exception e) {
                     // Пробуем следующий путь
                 }
             }
 
             if (!loaded) {
-                System.out.println("❌ Файл config.properties не найден!");
+                // Пробуем загрузить из classpath
+                try (InputStream input = Config.class.getClassLoader().getResourceAsStream("config.properties")) {
+                    if (input != null) {
+                        properties.load(input);
+                        System.out.println("✅ Конфиг загружен из classpath");
+                    } else {
+                        System.out.println("❌ Файл config.properties не найден!");
+                    }
+                }
             }
 
         } catch (Exception ex) {

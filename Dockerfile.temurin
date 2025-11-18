@@ -1,0 +1,5 @@
+FROM eclipse-temurin:11-jre
+WORKDIR /app
+COPY target/url-shortener-1.0-SNAPSHOT.jar app.jar
+COPY config.properties .
+ENTRYPOINT ["java", "-jar", "app.jar"]
