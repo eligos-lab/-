@@ -18,6 +18,14 @@ public class MainUI extends JFrame {
     private JPanel historyPanel;
     private JLabel statusLabel;
 
+    // Цвета кнопок
+    private final Color PRIMARY_BUTTON_COLOR = new Color(70, 130, 180);    // Синий
+    private final Color SUCCESS_BUTTON_COLOR = new Color(34, 139, 34);     // Зеленый
+    private final Color HISTORY_BUTTON_COLOR = new Color(100, 100, 100);   // Серый
+
+    // Размеры кнопок
+    private final Dimension BUTTON_SIZE = new Dimension(120, 35);
+
     public MainUI() {
         urlService = new UrlShortenerService();
         urlHistory = new ArrayList<>();
@@ -89,12 +97,7 @@ public class MainUI extends JFrame {
         urlField.setFont(new Font("Arial", Font.PLAIN, 14));
         urlField.setToolTipText("Введите длинную ссылку для сокращения");
 
-        shortenButton = new JButton("Сократить");
-        shortenButton.setFont(new Font("Arial", Font.BOLD, 14));
-        shortenButton.setBackground(new Color(70, 130, 180));
-        shortenButton.setForeground(Color.WHITE);
-        shortenButton.setFocusPainted(false);
-        shortenButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        shortenButton = createStyledButton("Сократить", PRIMARY_BUTTON_COLOR);
 
         panel.add(urlField, BorderLayout.CENTER);
         panel.add(shortenButton, BorderLayout.EAST);
@@ -115,20 +118,7 @@ public class MainUI extends JFrame {
 
         JScrollPane scrollPane = new JScrollPane(resultArea);
 
-        JButton copyButton = createCopyButton();
-
-        panel.add(scrollPane, BorderLayout.CENTER);
-        panel.add(copyButton, BorderLayout.EAST);
-
-        return panel;
-    }
-
-    private JButton createCopyButton() {
-        JButton copyButton = new JButton("Копировать");
-        copyButton.setBackground(new Color(34, 139, 34));
-        copyButton.setForeground(Color.WHITE);
-        copyButton.setFocusPainted(false);
-        copyButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        JButton copyButton = createStyledButton("Копировать", SUCCESS_BUTTON_COLOR);
 
         copyButton.addActionListener(e -> {
             String text = resultArea.getText();
@@ -140,7 +130,37 @@ public class MainUI extends JFrame {
             }
         });
 
-        return copyButton;
+        panel.add(scrollPane, BorderLayout.CENTER);
+        panel.add(copyButton, BorderLayout.EAST);
+
+        return panel;
+    }
+
+    private JButton createStyledButton(String text, Color backgroundColor) {
+        JButton button = new JButton(text);
+        button.setFont(new Font("Arial", Font.BOLD, 14));
+        button.setBackground(backgroundColor);
+        button.setForeground(Color.WHITE);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false); // Убираем стандартную границу
+        button.setOpaque(true); // Делаем кнопку полностью непрозрачной
+        button.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        button.setPreferredSize(BUTTON_SIZE);
+        button.setMinimumSize(BUTTON_SIZE);
+        button.setMaximumSize(BUTTON_SIZE);
+
+        // Добавляем эффект при наведении
+        button.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                button.setBackground(backgroundColor.darker());
+            }
+
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                button.setBackground(backgroundColor);
+            }
+        });
+
+        return button;
     }
 
     private JPanel createHistoryPanel() {
@@ -247,7 +267,12 @@ public class MainUI extends JFrame {
         longUrlLabel.setForeground(Color.DARK_GRAY);
 
         // Кнопка копирования
-        JButton copyBtn = createHistoryCopyButton(pair);
+        JButton copyBtn = createStyledButton("📋 Копировать", HISTORY_BUTTON_COLOR);
+        copyBtn.setFont(new Font("Arial", Font.PLAIN, 12));
+        copyBtn.setPreferredSize(new Dimension(100, 25));
+        copyBtn.setToolTipText("Копировать короткую ссылку");
+
+        copyBtn.addActionListener(e -> copyToClipboard(pair.shortUrl, "Ссылка скопирована: " + pair.shortUrl));
 
         // Клик по короткой ссылке
         shortUrlLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -269,17 +294,6 @@ public class MainUI extends JFrame {
         itemPanel.add(copyBtn, BorderLayout.EAST);
 
         return itemPanel;
-    }
-
-    private JButton createHistoryCopyButton(UrlPair pair) {
-        JButton copyBtn = new JButton("📋");
-        copyBtn.setFont(new Font("Arial", Font.PLAIN, 12));
-        copyBtn.setMargin(new Insets(2, 5, 2, 5));
-        copyBtn.setToolTipText("Копировать короткую ссылку");
-
-        copyBtn.addActionListener(e -> copyToClipboard(pair.shortUrl, "Ссылка скопирована: " + pair.shortUrl));
-
-        return copyBtn;
     }
 
     private void copyToClipboard(String text, String successMessage) {
