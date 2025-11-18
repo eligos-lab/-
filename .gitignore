@@ -1,0 +1,23 @@
+# Файл конфигурации с API ключом
+config.properties
+src/main/resources/config.properties
+resources/config.properties
+
+# Файлы сборки Maven
+target/
+*.jar
+*.war
+*.ear
+
+# Файлы IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Логи
+*.log
+
+# Системные файлы
+.DS_Store
+Thumbs.db
