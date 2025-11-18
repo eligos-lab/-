@@ -26,10 +26,7 @@ public class UrlShortenerService {
     public String shortenUrl(String longUrl) {
         try {
             if (token == null || token.equals("YOUR_BITLY_ACCESS_TOKEN_HERE")) {
-                System.out.println("❌ Ошибка: Не установлен Bitly токен!");
-                System.out.println("Создайте файл config.properties с содержимым:");
-                System.out.println("bitly.token=ВАШ_ТОКЕН_ЗДЕСЬ");
-                return null;
+                throw new Exception("Не установлен Bitly токен в config.properties");
             }
 
             Map<String, String> requestBody = new HashMap<>();
@@ -51,12 +48,10 @@ public class UrlShortenerService {
                 ShortenResponse shortenResponse = objectMapper.readValue(response.body(), ShortenResponse.class);
                 return shortenResponse.getShortUrl();
             } else {
-                System.err.println("❌ Ошибка API: " + response.statusCode() + " - " + response.body());
-                return null;
+                throw new Exception("Ошибка API: " + response.statusCode() + " - " + response.body());
             }
         } catch (Exception e) {
-            System.err.println("❌ Ошибка: " + e.getMessage());
-            return null;
+            throw new RuntimeException("Ошибка сокращения URL: " + e.getMessage());
         }
     }
 }
