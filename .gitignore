@@ -1,16 +1,11 @@
 # Конфигурационные файлы
 config.properties
-src/main/resources/config.properties
-resources/config.properties
 
 # Файлы сборки
 target/
 *.jar
 *.war
 *.ear
-
-# Docker
-docker-compose.override.yml
 
 # IDE
 .idea/
