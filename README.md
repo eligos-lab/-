@@ -82,7 +82,7 @@ api.key=YOUR_API_KEY_HERE
 
 ---
 
-## 🧩 How it works (архитектура)
+## 🧩 Архитектура
 
 ```
   [MainUI] -- вызывает --> [UrlShortenerService] -- обращается --> [Public Shortener API]
