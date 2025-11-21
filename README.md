@@ -67,17 +67,6 @@ docker run -it --rm url-shortener
 
 ---
 
-## ⚙️ Конфигурация
-
-Файл: `config.properties`
-
-```properties
-api.url=https://api.example.com/shorten
-api.key=YOUR_API_KEY_HERE
-```
-
----
-
 ## 🧩 Архитектура
 
 ```
