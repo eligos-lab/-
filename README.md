@@ -1,5 +1,3 @@
-# 🔗 URL Shortener — Modern Java App
-
 <div align="center">
   <!-- Colored HTML hero block -->
   <div style="background:linear-gradient(90deg,#0f172a,#0ea5a4);padding:18px;border-radius:12px;color:#fff;max-width:900px;margin:0 auto;">
