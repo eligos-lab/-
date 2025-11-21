@@ -57,14 +57,6 @@ mvn clean package
 java -jar target/url-shortener-1.0.jar
 ```
 
-### Docker (опционально)
-
-```bash
-# при добавлении Dockerfile
-docker build -t url-shortener .
-docker run -it --rm url-shortener
-```
-
 ---
 
 ## 🧩 Архитектура
