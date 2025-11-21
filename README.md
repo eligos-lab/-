@@ -4,7 +4,7 @@
   <!-- Colored HTML hero block -->
   <div style="background:linear-gradient(90deg,#0f172a,#0ea5a4);padding:18px;border-radius:12px;color:#fff;max-width:900px;margin:0 auto;">
     <h1 style="margin:0;padding:0;font-size:28px">URL Shortener</h1>
-    <p style="margin:6px 0 0; opacity:0.95">Сокращение ссылок • Статистика кликов • Локальный Java UI</p>
+    <p style="margin:6px 0 0; opacity:0.95">Сокращение ссылок • Локальный Java UI</p>
   </div>
 
   <!-- Badges -->
