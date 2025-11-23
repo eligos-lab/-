@@ -47,7 +47,7 @@
 
 ```bash
 # Клонировать (или распаковать архив)
-# git clone https://github.com/yourusername/url-shortener.git
+# git clone https://github.com/eligos-lab/-.git
 # cd url-shortener
 
 mvn clean package
